@@ -1,11 +1,13 @@
-import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../Form/Input";
 import { Button } from "../Form/Button";
 import { Background } from "../BackgroundLogIn&Regist";
 import { useEffect, useState, useContext } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import { Title, TextBox} from "../Title";
+import { ContainerLoginRegister } from "../Form/ContainerLoginRegister";
+import { Form } from "../Form/Form";
+import { Span } from '../Form/Span';
 import axios from "axios";
 
 
@@ -82,39 +84,3 @@ export function LoginPage (){
         </Background>
     )
 }
-
-
-// & SOME CSS COMPONENTS
-
-const ContainerLoginRegister = styled.div`
-    display: flex; flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #333333;
-    width: 30%;
-
-    @media (max-width: 900px) {
-        width: 100%;
-        padding: 30px 10px 100px 10px;
-        box-sizing: border-box;
-    }
-`
-
-const Span = styled.span`
-    font-family: 'Lato', sans-serif;
-    color: white;
-    text-decoration: underline;
-    &:hover{
-        cursor: pointer;
-        text-decoration: none;
-    }
-`
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 8px;
-`
