@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../Form/Input";
 import { Button } from "../Form/Button";
 import { Background } from "../BackgroundLogIn&Regist";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import userDataContext from "../../contexts/userDataContext";
 import { Title, TextBox} from "../Title";
 import { ContainerLoginRegister } from "../Form/ContainerLoginRegister";
 import { Form } from "../Form/Form";
@@ -11,37 +12,47 @@ import axios from "axios";
 
 
 export function LoginPage (){
+    const { setUserData } = useContext(userDataContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [buttonStatus, setButtonStatus] = useState(false);
     const navigate = useNavigate();
-    const token = localStorage.getItem("tokenLinkr");
 
+    // & Esse useEffect verifica se o usuário já ta logado verificando a validação do seu token, se tiver.
     useEffect( () => {
+        const token = localStorage.getItem("tokenLinkr");
         if(token){
             const promise = axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {token});
             promise
             .then( res =>{ navigate('/timeline') })
-            .catch ( err =>{ console.log(err ); localStorage.removeItem("tokenLinkr") })
+            .catch ( err =>{ console.log(err ); localStorage.removeItem("tokenLinkr") });
         }
     }, []);
 
-    
     function logIn (e){
         e.preventDefault();
         setButtonStatus(true);
 
-        const promise = axios.post(`${process.env.REACT_APP_API_URL}/signin`, {email, password});
-        promise.then( res =>{
+
+        axios.post(`${process.env.REACT_APP_API_URL}/signin`, {email, password})
+    
+        .then( res =>{
             console.log(res.data);
             localStorage.setItem("tokenLinkr", res.data.token);
+            setUserData(res.data);
             navigate('/timeline');
         })
+
         .catch ( err =>{
-            console.log(err);
-            alert('Email or password incorrect!');
+            if(err.response.status === 401){
+                alert('Email or password incorrect!');
+            } else if (err.response.status === 422) {
+                alert('Invalid email!');
+            } else {
+                alert(err.message);
+            }
             setButtonStatus(false);
-        })
+        });
     }
 
     return(
