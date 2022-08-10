@@ -1,7 +1,8 @@
 import "./assets/styles/reset.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LoginPage } from "./components/Login/Login";
-
+import SignUpScreen from "./components/SignUpScreen/SignUpScreen";
+import TimeLineScreen from "./components/TimeLineScreen/TimeLineScreen";
+import { LoginPage } from './components/LoginScreen/LoginPage'
 
 export default function App() {
     return(
@@ -9,6 +10,8 @@ export default function App() {
 
             <Routes>
 
+                <Route path="/sign-up" element={<SignUpScreen />} />
+                <Route path="/timeline" element={<TimeLineScreen />} />
                 <Route path='/' element={<LoginPage/>} />
 
             </Routes>
