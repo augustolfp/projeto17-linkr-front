@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import userDataContext from "../../contexts/userDataContext";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Title, TextBox} from "../Title";
 import { ContainerLoginRegister } from "../Form/ContainerLoginRegister";
@@ -11,13 +12,23 @@ import { Background } from "../BackgroundLogIn&Regist";
 
 
 export default function SignUpScreen(){
+    const { userData } = useContext(userDataContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUserName] = useState("");
     const [pictureUrl, setPictureUrl] = useState("");
     const [buttonStatus, setButtonStatus] = useState(false);
     const navigate = useNavigate();
-    
+
+    useEffect(verifyIfTheUserHaveToken);
+
+    function verifyIfTheUserHaveToken (){
+        const token = localStorage.getItem("tokenLinkr");
+
+        if(userData.token || token){
+           return navigate('/timeline')
+        }
+    }
 
     function handleSignUp(e){
         e.preventDefault();

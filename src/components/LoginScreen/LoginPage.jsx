@@ -10,24 +10,23 @@ import { Form } from "../Form/Form";
 import { Span } from '../Form/Span';
 import axios from "axios";
 
-
 export function LoginPage (){
-    const { setUserData } = useContext(userDataContext);
+    const { setUserData, userData } = useContext(userDataContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [buttonStatus, setButtonStatus] = useState(false);
     const navigate = useNavigate();
 
-    // & Esse useEffect verifica se o usuário já ta logado verificando a validação do seu token, se tiver.
-    useEffect( () => {
+
+    useEffect(verifyIfTheUserHaveToken);
+
+    function verifyIfTheUserHaveToken (){
         const token = localStorage.getItem("tokenLinkr");
-        if(token){
-            const promise = axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {token});
-            promise
-            .then( res =>{ navigate('/timeline') })
-            .catch ( err =>{ console.log(err ); localStorage.removeItem("tokenLinkr") });
+
+        if(userData.token || token){
+           return navigate('/timeline')
         }
-    }, []);
+    }
 
     function logIn (e){
         e.preventDefault();
