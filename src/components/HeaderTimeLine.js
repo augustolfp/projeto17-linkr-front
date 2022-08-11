@@ -18,7 +18,7 @@ export function HeaderTimeLine(){
     }
 
     function logout(){
-        setUserData(null);
+        setUserData({});
         localStorage.removeItem('tokenLinkr');
         navigate('/');
     }

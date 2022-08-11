@@ -10,14 +10,20 @@ export default function TimeLineScreen() {
     const navigate = useNavigate();
     const token = localStorage.getItem("tokenLinkr");
 
-    // & ESSE useEffect Verifica se o usuário tem TOKEN se não redireciona para o login!
-    useEffect( () => {
-        if(!userData.token && !token){
-            return navigate('/');    
-        }
-        if(!userData.token){
 
-            axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {token})
+    useEffect(verifyIfTheUserHaveToken);
+
+    function verifyIfTheUserHaveToken (){
+        if(!token && !userData.token ){
+            return navigate('/') 
+        }
+
+        let tokenToVerify = '';
+        if(userData.token){ tokenToVerify = userData.token}
+        else {tokenToVerify = token}
+
+        if(!userData.token && token){
+            axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {tokenToVerify})
             
             .then( res =>{
                 setUserData(res.data)
@@ -29,7 +35,7 @@ export default function TimeLineScreen() {
                 navigate('/');
             });
         }
-    }, []);
+    }
 
     return(
         <HeaderTimeLine/>
