@@ -18,7 +18,7 @@ export function LoginPage (){
     const navigate = useNavigate();
 
 
-    useEffect(verifyIfTheUserHaveToken);
+    useEffect(verifyIfTheUserHaveToken, []);
 
     function verifyIfTheUserHaveToken (){
         const token = localStorage.getItem("tokenLinkr");

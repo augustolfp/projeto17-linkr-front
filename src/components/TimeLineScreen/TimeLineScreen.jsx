@@ -11,7 +11,7 @@ export default function TimeLineScreen() {
     const token = localStorage.getItem("tokenLinkr");
 
 
-    useEffect(verifyIfTheUserHaveToken);
+    useEffect(verifyIfTheUserHaveToken, []);
 
     function verifyIfTheUserHaveToken (){
         if(!token && !userData.token ){
@@ -23,6 +23,7 @@ export default function TimeLineScreen() {
         else {tokenToVerify = token}
 
         if(!userData.token && token){
+            console.log('entrou aq')
             axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {tokenToVerify})
             
             .then( res =>{
