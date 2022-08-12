@@ -27,11 +27,10 @@ export default function PostBox() {
 
 const PostCreatorContainer = styled.div`
     display: flex;
-    width: 50vw;
     background-color: white;
     border-radius: 10px;
     padding: 18px;
-
+    gap: 20px;
     h1 {
         font-family: 'Lato', sans-serif;
         font-weight: 300;
@@ -45,6 +44,7 @@ const Container = styled.div`
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
+    gap: 10px;
 `
 
 const PerfilPhoto = styled.div`

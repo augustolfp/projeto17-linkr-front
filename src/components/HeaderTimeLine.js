@@ -58,6 +58,7 @@ const BackgroundHeader = styled.div`
     width: 100%;
     height: 72px;
     background-color: #151515;
+    z-index: 1;
 `
 
 const BoxTitle = styled.div`
@@ -95,7 +96,6 @@ const NavMenu =  styled.div`
     background-color: #151515;
     position: absolute;
     right: 0px;
-    z-index: -1;
     top: ${props => props.status ? '6%': '0%'}; // ! ANIMAÇÃO AQUI
     border-bottom-left-radius: 15px;
     display: flex;
