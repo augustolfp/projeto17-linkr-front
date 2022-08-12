@@ -1,13 +1,34 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
 import userDataContext from "../../contexts/userDataContext";
+import axios from "axios";
 
 export default function PostBox() {
     const [postUrl, setPostUrl] = useState("");
     const [postDescription,setPostDescription] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
     const { userData, setUserData } = useContext(userDataContext);
+
     function publishPost(event) {
         event.preventDefault();
+        setIsDisabled(true);
+        const token = userData.token;
+        const body = {
+            postUrl,
+            postDescription
+        }
+        console.log(token);
+        console.log(body);
+        const sendPost = axios.post(`${process.env.REACT_APP_API_URL}/publish`, body, token);
+
+        sendPost.then(() => {
+            setIsDisabled(false);
+            console.log("Post enviado com sucesso!");
+        });
+        sendPost.catch(() => {
+            setIsDisabled(false);
+            console.log("Ocorreu um erro no envio do post!");
+        });
     }
 
     return(
@@ -16,9 +37,9 @@ export default function PostBox() {
             <Container>
                 <h1>What are you going to share today?</h1>
                 <Form onSubmit={publishPost}> 
-                    <input type="text" placeholder="http://..." onChange={e => setPostUrl(e.target.value)} required/>
-                    <input type="text" placeholder="Awesome article about #javascript" onChange={e => setPostDescription(e.target.value)} required/>
-                    <button type="submit">Publish</button>
+                    <input type="text" name="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="http://..." disabled={isDisabled} required />
+                    <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={isDisabled} required />
+                    <button type="submit" disabled={isDisabled}>Publish</button>
                 </Form>
             </Container>
         </PostCreatorContainer>
