@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ReactTagify as Hashtag } from "react-tagify";
 
 export function HashtagBox (){
     const [hashtags, setHashtags] = useState([]);
+    const navigate = useNavigate();
 
     useEffect( () =>{
         axios.get(`${process.env.REACT_APP_API_URL}/hashtags`)
@@ -18,19 +20,30 @@ export function HashtagBox (){
         
     }, []);
 
-    function renderHashtags (){
-        return hashtags.map( item  =>{
-            return <Hashtag colors="white" tagClicked={(tag)=> alert(tag)}>
-                {item.name}
-            </Hashtag> })
+    function openHashtag (hashtag){
+        const hashtagFilter = hashtag.replace("#", "");
+        navigate(`/hashtag/${hashtagFilter}`);
     }
+
+    const tagStyle = {
+        color: 'white',
+        cursor: 'pointer'
+    };
 
     return (
         <Container>
             <Title>trending</Title>
 
             <BoxList>
-                {hashtags.length > 0 ? renderHashtags : "No hashtag found"}
+
+                {
+                hashtags.length > 0 ?
+                hashtags.map( (item, index) =>
+                <Hashtag key={index} tagStyle={tagStyle} tagClicked={ hashtag => openHashtag(hashtag)}>
+                    {`#${item}`}
+                </Hashtag> ) : "No hashtag found!"
+                }
+
             </BoxList>
 
         </Container>
