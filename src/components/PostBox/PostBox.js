@@ -39,7 +39,7 @@ export default function PostBox() {
                 <Form onSubmit={publishPost}> 
                     <input type="text" name="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="http://..." disabled={isDisabled} required />
                     <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={isDisabled} required />
-                    <button type="submit" disabled={isDisabled}>Publish</button>
+                    <button type="submit" disabled={isDisabled}>{ isDisabled ? "Publishing.." : "Publish" }</button>
                 </Form>
             </Container>
         </PostCreatorContainer>
