@@ -22,12 +22,14 @@ export default function PostBox() {
         const sendPost = axios.post(`${process.env.REACT_APP_API_URL}/publish`, body, token);
 
         sendPost.then(() => {
+            setPostDescription("");
+            setPostUrl("");
             setIsDisabled(false);
             console.log("Post enviado com sucesso!");
         });
         sendPost.catch(() => {
+            alert("Houve um erro ao publicar seu link");
             setIsDisabled(false);
-            console.log("Ocorreu um erro no envio do post!");
         });
     }
 
@@ -38,8 +40,8 @@ export default function PostBox() {
                 <h1>What are you going to share today?</h1>
                 <Form onSubmit={publishPost}> 
                     <input type="text" name="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="http://..." disabled={isDisabled} required />
-                    <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={isDisabled} required />
-                    <button type="submit" disabled={isDisabled}>Publish</button>
+                    <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={isDisabled} />
+                    <button type="submit" disabled={isDisabled}>{ isDisabled ? "Publishing.." : "Publish" }</button>
                 </Form>
             </Container>
         </PostCreatorContainer>
