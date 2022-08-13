@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import axios from "axios";
 
-export default function PostBox() {
+export default function PostCreator() {
     const [postUrl, setPostUrl] = useState("");
     const [postDescription,setPostDescription] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
