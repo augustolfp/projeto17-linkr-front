@@ -26,9 +26,10 @@ export default function PostBox() {
 }
 
 const PostCreatorContainer = styled.div`
+    box-sizing: border-box;
     display: flex;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 18px;
     gap: 20px;
     h1 {
@@ -36,6 +37,10 @@ const PostCreatorContainer = styled.div`
         font-weight: 300;
         color: #707070;
         font-size: 20px;
+    }
+    @media (max-width: 670px) {
+        width: 100%;
+        border-radius: 0px;
     }
 `
 

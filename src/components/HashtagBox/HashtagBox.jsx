@@ -39,8 +39,8 @@ export function HashtagBox (){
                 {
                 hashtags.length > 0 ?
                 hashtags.map( (item, index) =>
-                <Hashtag key={index} tagStyle={tagStyle} tagClicked={ hashtag => openHashtag(hashtag)}>
-                    {`#${item}`}
+                <Hashtag key={item.hashtagId} tagStyle={tagStyle} tagClicked={ hashtag => openHashtag(hashtag)}>
+                    {`#${item.name}`}
                 </Hashtag> ) : "No hashtag found!"
                 }
 
@@ -65,6 +65,10 @@ const Container = styled.div`
     gap: 1px;
     border-radius: 20px;
     overflow: hidden;
+    @media (max-width: 670px) {
+        max-width: none;
+        border-radius: 0px;
+    }
 `
 
 const Title = styled.div`

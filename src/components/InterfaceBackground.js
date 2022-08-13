@@ -21,5 +21,9 @@ const Container = styled.div`
         font-family: 'Oswald', cursive;
         font-weight: 700;
         font-size: 2em;
+        text-indent: 0.3em;
+    }
+    @media (max-width: 670px) {
+        width: 100%;
     }
 `

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import userDataContext from "../../contexts/userDataContext";
 import { HeaderTimeLine } from "../HeaderTimeLine";
 import InterfaceBackground from "../InterfaceBackground";
+import { BackgroundFeed } from "../BackgroundFeed";
 import { HashtagBox } from "../HashtagBox/HashtagBox";
 
 
@@ -61,19 +62,3 @@ export default function HashtagScreen() {
         </>
     );
 }
-
-const BackgroundFeed =  styled.div`
-    box-sizing: border-box;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    background-color: #333333;
-    height: 91vh;
-    gap: 20px;
-
-    @media (max-width: 670px) {
-        flex-direction: column;
-        align-items: center;
-    }
-
-`

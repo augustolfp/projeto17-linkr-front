@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PostBox from "../PostBox/PostBox";
 import InterfaceBackground from "../InterfaceBackground";
+import { BackgroundFeed } from "../BackgroundFeed";
 import { HashtagBox } from "../HashtagBox/HashtagBox";
-import styled from "styled-components";
 
 export default function TimeLineScreen() {
     const { userData, setUserData } = useContext(userDataContext);
@@ -58,19 +58,3 @@ export default function TimeLineScreen() {
         </>
     );
 }
-
-const BackgroundFeed =  styled.div`
-    box-sizing: border-box;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    background-color: #333333;
-    height: 91vh;
-    gap: 20px;
-
-    @media (max-width: 670px) {
-        flex-direction: column;
-        align-items: center;
-    }
-
-`
