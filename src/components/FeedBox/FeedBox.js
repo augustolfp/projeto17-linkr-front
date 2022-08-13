@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 import userDataContext from "../../contexts/userDataContext";
+import PostBox from "../PostBox/PostBox";
 import axios from "axios";
 
 export default function FeedBox() {
@@ -21,6 +22,14 @@ export default function FeedBox() {
     }, []);
 
     return(
-        <h1>Nada ainda</h1>
+        <>
+            {
+                feed.length > 0 ? (
+                    feed.map((post, index) => <PostBox key={index} {...post} />)
+                ) : (
+                    <h3>Loading...</h3>
+                )
+            }
+        </>
     );
 }

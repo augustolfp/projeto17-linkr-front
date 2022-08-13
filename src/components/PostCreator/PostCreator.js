@@ -35,7 +35,7 @@ export default function PostCreator() {
 
     return(
         <PostCreatorContainer>
-            <PerfilPhoto image={userData.pictureUrl}></PerfilPhoto>
+            <ProfilePhoto image={userData.pictureUrl}></ProfilePhoto>
             <Container>
                 <h1>What are you going to share today?</h1>
                 <Form onSubmit={publishPost}> 
@@ -70,7 +70,7 @@ const Container = styled.div`
     width: 100%;
 `
 
-const PerfilPhoto = styled.div`
+const ProfilePhoto = styled.div`
     border-radius: 50%;
     background: ${props => props.image ? `url(${props.image})` : "white"};
     background-position: center;
