@@ -22,6 +22,8 @@ export default function PostBox() {
         const sendPost = axios.post(`${process.env.REACT_APP_API_URL}/publish`, body, token);
 
         sendPost.then(() => {
+            setPostDescription("");
+            setPostUrl("");
             setIsDisabled(false);
             console.log("Post enviado com sucesso!");
         });
