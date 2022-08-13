@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PostBox from "../PostBox/PostBox";
+import FeedBox from "../FeedBox/FeedBox";
 import InterfaceBackground from "../InterfaceBackground";
 
 
@@ -44,6 +45,7 @@ export default function TimeLineScreen() {
         <HeaderTimeLine/>
         <InterfaceBackground>
             <PostBox />
+            <FeedBox />
         </InterfaceBackground>
         </>
     );
