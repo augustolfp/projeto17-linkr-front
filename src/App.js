@@ -10,20 +10,16 @@ export default function App() {
     const [userData, setUserData] = useState({});
 
     return(
-        <BrowserRouter>
-
         <userDataContext.Provider value={{ userData, setUserData }}>
-
-            <Routes>
-
-                <Route path="/sign-up" element={<SignUpScreen />} />
-                <Route path="/timeline" element={<TimeLineScreen />} />
-                <Route path='/' element={<LoginPage/>} />
-
-            </Routes>
-
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/sign-up" element={<SignUpScreen />} />
+                    <Route path="/timeline" element={<TimeLineScreen />} />
+                    <Route path='/' element={<LoginPage/>} />
+                </Routes>
+            </BrowserRouter>
         </userDataContext.Provider>
         
-        </BrowserRouter>
+        
     );
 }
