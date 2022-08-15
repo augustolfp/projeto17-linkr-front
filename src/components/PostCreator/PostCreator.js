@@ -7,21 +7,24 @@ export default function PostCreator(props) {
     const [postUrl, setPostUrl] = useState("");
     const [postDescription,setPostDescription] = useState("");
     const { userData } = useContext(userDataContext);
-    console.log(userData)
+
     function publishPost(event) {
         event.preventDefault();
         props.setIsDisabled(true);
+        const hashtags = getHashTags(postDescription);console.log(hashtags, ' captured hashs');
+        
         const token = {
             headers: {
                 Authorization: `Bearer ${userData.token}`
             }
         }
+        
         const body = {
             postUrl,
-            postDescription
+            postDescription,
+            hashtags
         }
-        console.log(token);
-        console.log(body);
+        
         const sendPost = axios.post(`${process.env.REACT_APP_API_URL}/publish`, body, token);
 
         sendPost.then(() => {
@@ -34,6 +37,16 @@ export default function PostCreator(props) {
             alert("Houve um erro ao publicar seu link");
             props.setIsDisabled(false);
         });
+    }
+
+    function getHashTags(inputText) {  
+        const regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
+        let hashtags = [];
+        let match;
+        while ((match = regex.exec(inputText))) {
+            hashtags.push(match[1]);
+        }
+        return hashtags;
     }
 
     return(

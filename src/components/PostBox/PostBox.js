@@ -1,12 +1,31 @@
 import styled from "styled-components";
+import { ReactTagify as Hashtag } from "react-tagify";
+import { useNavigate } from "react-router-dom";
+
 
 export default function PostBox(props) {
+
+    const navigate = useNavigate();
+
+
+    const tagStyle = {
+        color: 'white',
+        cursor: 'pointer',
+        fontWeight: 'bold'
+    };
+
+    function openHashtagScrenn(hashtag){
+        navigate(`/hashtag/${hashtag.replace('#','')}`);
+    }
+
     return(
         <PostBoxContainer>
             <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
             <ContentContainer>
                 <h2>{props.username}</h2>
-                <h3>{props.text}</h3>
+                <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
+                    <p>{`${props.text}`}</p>  
+                </Hashtag> 
                 <a href={props.url} target="_blank">
                     <ThumbnailContainer>
                         <ThumbnailTextContainer>
@@ -55,7 +74,7 @@ const ContentContainer = styled.div`
     h2 {
         font-size: 19px;
     }
-    h3 {
+    p {
         font-size: 1em;
         color: #B7B7B7;
     }
