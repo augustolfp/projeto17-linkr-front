@@ -3,22 +3,22 @@ import { useState, useContext } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import axios from "axios";
 
-export default function PostCreator() {
+export default function PostCreator(props) {
     const [postUrl, setPostUrl] = useState("");
     const [postDescription,setPostDescription] = useState("");
-    const [isDisabled, setIsDisabled] = useState(false);
     const { userData } = useContext(userDataContext);
 
     function publishPost(event) {
         event.preventDefault();
-        setIsDisabled(true);
+        props.setIsDisabled(true);
         const hashtags = getHashTags(postDescription);console.log(hashtags, ' captured hashs');
-
+        
         const token = {
             headers: {
                 Authorization: `Bearer ${userData.token}`
             }
         }
+        
         const body = {
             postUrl,
             postDescription,
@@ -30,12 +30,12 @@ export default function PostCreator() {
         sendPost.then(() => {
             setPostDescription("");
             setPostUrl("");
-            setIsDisabled(false);
+            props.setIsDisabled(false);
             console.log("Post enviado com sucesso!");
         });
         sendPost.catch(() => {
             alert("Houve um erro ao publicar seu link");
-            setIsDisabled(false);
+            props.setIsDisabled(false);
         });
     }
 
@@ -55,9 +55,9 @@ export default function PostCreator() {
             <Container>
                 <h1>What are you going to share today?</h1>
                 <Form onSubmit={publishPost}> 
-                    <input type="text" name="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="http://..." disabled={isDisabled} required />
-                    <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={isDisabled} />
-                    <button type="submit" disabled={isDisabled}>{ isDisabled ? "Publishing.." : "Publish" }</button>
+                    <input type="text" name="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="http://..." disabled={props.isDisabled} required />
+                    <input type="text" name="text" value={postDescription} onChange={e => setPostDescription(e.target.value)} placeholder="Awesome article about #javascript" disabled={props.isDisabled} />
+                    <button type="submit" disabled={props.isDisabled}>{ props.isDisabled ? "Publishing.." : "Publish" }</button>
                 </Form>
             </Container>
         </PostCreatorContainer>
