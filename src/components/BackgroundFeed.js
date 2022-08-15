@@ -6,7 +6,7 @@ padding: 10px 0px 10px 0px;
 display: flex;
 justify-content: center;
 background-color: #333333;
-height: 90.5vh;
+height: 100%;
 gap: 20px;
 
 @media (max-width: 670px) {

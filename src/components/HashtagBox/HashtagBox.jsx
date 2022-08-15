@@ -59,7 +59,7 @@ const Container = styled.div`
     height: fit-content;
     width: 100%;
     max-width: 300px;
-    margin-top: 50px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     gap: 1px;

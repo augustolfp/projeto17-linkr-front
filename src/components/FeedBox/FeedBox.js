@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import PostBox from "../PostBox/PostBox";
