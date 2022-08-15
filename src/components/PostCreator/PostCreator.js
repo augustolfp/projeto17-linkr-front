@@ -8,7 +8,7 @@ export default function PostCreator() {
     const [postDescription,setPostDescription] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const { userData, setUserData } = useContext(userDataContext);
-
+    console.log(userData)
     function publishPost(event) {
         event.preventDefault();
         setIsDisabled(true);
