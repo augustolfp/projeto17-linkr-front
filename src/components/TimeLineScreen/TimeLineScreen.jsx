@@ -46,7 +46,7 @@ export default function TimeLineScreen() {
           <BackgroundFeed>
 
               <InterfaceBackground type={'timeline'}>
-                  <FeedBox />
+                  <FeedBox/>
               </InterfaceBackground>
 
               <HashtagBox/>
