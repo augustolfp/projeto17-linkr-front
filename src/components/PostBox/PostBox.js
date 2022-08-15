@@ -7,14 +7,16 @@ export default function PostBox(props) {
             <ContentContainer>
                 <h2>{props.username}</h2>
                 <h3>{props.text}</h3>
-                <ThumbnailContainer>
-                    <ThumbnailTextContainer>
-                        <h4>{props.urlTitle}</h4>
-                        <h5>{props.urlDescription}</h5>
-                        <h6>{props.url}</h6>
-                    </ThumbnailTextContainer>
-                    <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
-                </ThumbnailContainer>
+                <a href={props.url} target="_blank">
+                    <ThumbnailContainer>
+                        <ThumbnailTextContainer>
+                            <h4>{props.urlTitle}</h4>
+                            <h5>{props.urlDescription}</h5>
+                            <h6>{props.url}</h6>
+                        </ThumbnailTextContainer>
+                        <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
+                    </ThumbnailContainer>
+                </a>
             </ContentContainer>
         </PostBoxContainer>
     );
@@ -56,6 +58,10 @@ const ContentContainer = styled.div`
     h3 {
         font-size: 1em;
         color: #B7B7B7;
+    }
+    a {
+        color: inherit;
+        text-decoration: inherit;
     }
 `
 
