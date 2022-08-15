@@ -1,6 +1,5 @@
 import axios from "axios";
-import styled from "styled-components";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import userDataContext from "../../contexts/userDataContext";
 import { HeaderTimeLine } from "../HeaderTimeLine";
@@ -10,13 +9,17 @@ import { HashtagBox } from "../HashtagBox/HashtagBox";
 
 
 export default function HashtagScreen() {
+    const [postsByHashtag, setPostsByHashtag] = useState([]);
     const { userData, setUserData } = useContext(userDataContext);
-    const navigate = useNavigate();
     const { hashtag } = useParams();
     const token = localStorage.getItem("tokenLinkr");
+    const navigate = useNavigate();
 
 
-    useEffect(verifyIfTheUserHaveToken, []);
+    useEffect(() =>{
+        verifyIfTheUserHaveToken()
+        getPostsByHashtag()
+    }, [hashtag]);
 
     function verifyIfTheUserHaveToken (){
         if(!token && !userData.token ){
@@ -42,6 +45,17 @@ export default function HashtagScreen() {
         }
     }
 
+    function getPostsByHashtag (){
+        axios.get(`${process.env.REACT_APP_API_URL}/hashtag/${hashtag}`)
+        .then( res =>{
+            console.log(res)
+        })
+        .catch( err => {
+            console.log(err)
+            navigate('/timeline')
+        })
+    }
+
     return(
         <>
             <HeaderTimeLine/>
@@ -50,7 +64,10 @@ export default function HashtagScreen() {
 
                 <InterfaceBackground type={`# ${hashtag}`}>
 
-                {/* AQUI VAI VIM POSTS DA HASHTAG */}
+                {
+                postsByHashtag.length > 0 ?
+                "Posts" : "Loading..."
+                }
 
                 </InterfaceBackground>
 

@@ -68,6 +68,7 @@ const Container = styled.div`
     @media (max-width: 670px) {
         max-width: none;
         border-radius: 0px;
+        overflow: visible;
     }
 `
 
