@@ -7,7 +7,14 @@ export default function PostBox(props) {
             <ContentContainer>
                 <h2>{props.username}</h2>
                 <h3>{props.text}</h3>
-                <span>{props.url}</span>
+                <ThumbnailContainer>
+                    <ThumbnailTextContainer>
+                        <h4>{props.urlTitle}</h4>
+                        <h5>{props.urlDescription}</h5>
+                        <h6>{props.url}</h6>
+                    </ThumbnailTextContainer>
+                    <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
+                </ThumbnailContainer>
             </ContentContainer>
         </PostBoxContainer>
     );
@@ -50,4 +57,38 @@ const ContentContainer = styled.div`
         font-size: 1em;
         color: #B7B7B7;
     }
+`
+
+const ThumbnailContainer = styled.div`
+    display: flex;
+`
+
+const ThumbnailTextContainer = styled.div`
+    width: 200px;
+
+    h4 , h5, h6 {
+        font-family: 'Lato', sans-serif;
+    }
+
+    h4 {
+        font-size: 16px;
+        color: #cecece;
+    }
+
+    h5 {
+        font-size: 11px;
+        color: #9B9595;
+    }
+
+    h6 {
+        font-size: 11px;
+        color: #cecece;
+    }
+`
+
+const ThumbnailPhoto = styled.div`
+    width: 150px;
+    background: ${props => props.image ? `url(${props.image})` : "white"};
+    background-position: center;
+    background-size: cover;
 `
