@@ -30,7 +30,7 @@ export default function TimeLineScreen() {
             axios.post(`${process.env.REACT_APP_API_URL}/verifytoken`, {tokenToVerify})
             
             .then( res =>{
-                setUserData(res.data)
+                setUserData({...res.data, token})
             })
 
             .catch ( err =>{
