@@ -32,8 +32,12 @@ export function LoginPage (){
         e.preventDefault();
         setIsDisabled(true);
 
+        const body = {
+            email,
+            password
+        }
 
-        axios.post(`${process.env.REACT_APP_API_URL}/signin`, {email, password})
+        axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
     
         .then( res =>{
             console.log(res.data);
