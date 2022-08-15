@@ -53,17 +53,22 @@ export default function PostCreator() {
 }
 
 const PostCreatorContainer = styled.div`
+    box-sizing: border-box;
     display: flex;
-    width: 50vw;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 18px;
-
+    gap: 20px;
+    width: 100%;
     h1 {
         font-family: 'Lato', sans-serif;
         font-weight: 300;
         color: #707070;
         font-size: 20px;
+    }
+    @media (max-width: 670px) {
+        width: 100%;
+        border-radius: 0px;
     }
 `
 
@@ -72,6 +77,7 @@ const Container = styled.div`
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
+    gap: 5px;
 `
 
 const ProfilePhoto = styled.div`

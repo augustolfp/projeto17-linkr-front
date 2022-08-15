@@ -13,44 +13,17 @@ export default function PostBox(props) {
     );
 }
 
-
-const PostCreatorContainer = styled.div`
+const PostBoxContainer = styled.div`
     box-sizing: border-box;
     display: flex;
-    background-color: white;
-    border-radius: 20px;
-    padding: 18px;
-    gap: 20px;
-    h1 {
-        font-family: 'Lato', sans-serif;
-        font-weight: 300;
-        color: #707070;
-        font-size: 20px;
-    }
-    @media (max-width: 670px) {
-        width: 100%;
-        border-radius: 0px;
-    }
-`
-
-const Container = styled.div`
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
     width: 100%;
-    gap: 10px;
-`
-
-const PostBoxContainer = styled.div`
-    display: flex;
-    width: 50vw;
     background-color: #171717;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 18px;
     color: white;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-
+    
     h2 {
         font-size: 19px;
     }

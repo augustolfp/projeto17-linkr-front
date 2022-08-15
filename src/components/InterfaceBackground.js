@@ -14,6 +14,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #333333;
+    gap: 10px;
     h3{ 
         padding-bottom: 20px;
         width: 100%;
