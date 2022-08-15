@@ -10,6 +10,7 @@ export default function InterfaceBackground(props) {
 }
 
 const Container = styled.div`
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +18,9 @@ const Container = styled.div`
     gap: 10px;
     @media (max-width: 670px) {
         width: 100%;
+        max-width: 100%;
     }
+
 `
 
 const TitleTimeline = styled.h3`
