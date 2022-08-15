@@ -2,10 +2,12 @@ import { useState, useContext, useEffect } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import PostBox from "../PostBox/PostBox";
 import axios from "axios";
+import PostCreator from "../PostCreator/PostCreator";
 
 export default function FeedBox() {
     const {userData} = useContext(userDataContext);
     const [feed, setFeed] = useState([]);
+    const [isDisabled, setIsDisabled] = useState(false);
     const token = userData.token;
 
     useEffect(() => {
@@ -18,10 +20,11 @@ export default function FeedBox() {
 
         feedRequest.catch(answer => console.log(answer));
 
-    }, []);
+    }, [isDisabled]);
 
     return(
         <>
+            <PostCreator isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
             {
                 feed.length > 0 ? (
                     feed.map((post, index) => <PostBox key={index} {...post} />)

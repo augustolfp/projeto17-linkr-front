@@ -3,7 +3,6 @@ import userDataContext from "../../contexts/userDataContext";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import PostCreator from "../PostCreator/PostCreator";
 import FeedBox from "../FeedBox/FeedBox";
 import InterfaceBackground from "../InterfaceBackground";
 import { BackgroundFeed } from "../BackgroundFeed";
@@ -47,7 +46,6 @@ export default function TimeLineScreen() {
           <BackgroundFeed>
 
               <InterfaceBackground type={'timeline'}>
-                  <PostCreator />
                   <FeedBox />
               </InterfaceBackground>
 
