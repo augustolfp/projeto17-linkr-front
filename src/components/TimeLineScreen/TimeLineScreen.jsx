@@ -6,7 +6,8 @@ import axios from "axios";
 import PostCreator from "../PostCreator/PostCreator";
 import FeedBox from "../FeedBox/FeedBox";
 import InterfaceBackground from "../InterfaceBackground";
-
+import { BackgroundFeed } from "../BackgroundFeed";
+import { HashtagBox } from "../HashtagBox/HashtagBox";
 
 export default function TimeLineScreen() {
     const { userData, setUserData } = useContext(userDataContext);
@@ -42,11 +43,16 @@ export default function TimeLineScreen() {
 
     return(
         <>
-        <HeaderTimeLine/>
-        <InterfaceBackground>
-            <PostCreator />
-            <FeedBox />
-        </InterfaceBackground>
+          <HeaderTimeLine/>
+          <BackgroundFeed>
+
+              <InterfaceBackground type={'timeline'}>
+                  <PostCreator />
+                  <FeedBox />
+              </InterfaceBackground>
+
+              <HashtagBox/>
+          </BackgroundFeed>
         </>
     );
 }

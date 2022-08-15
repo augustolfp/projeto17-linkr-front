@@ -23,11 +23,15 @@ export function HeaderTimeLine(){
         navigate('/');
     }
 
+    function backHome(){
+        navigate('/timeline');
+    }
+
     return (
         <Container>
             <BackgroundHeader>
 
-            <BoxTitle>linkr</BoxTitle>
+            <BoxTitle onClick={backHome}>linkr</BoxTitle>
 
             <MenuBox status={menuEnable} >
                 <IoIosArrowDown  className="arrow" color= "white" size="1.5em" onClick={openMenu}/>
@@ -58,6 +62,7 @@ const BackgroundHeader = styled.div`
     width: 100%;
     height: 72px;
     background-color: #151515;
+    z-index: 1;
 `
 
 const BoxTitle = styled.div`
@@ -65,6 +70,7 @@ const BoxTitle = styled.div`
     font-family: 'Passion One', cursive;
     font-size: 2.8em;
     letter-spacing: 0.1em;
+    cursor: pointer;
 `
 
 const PerfilPhoto = styled.div`
@@ -95,7 +101,6 @@ const NavMenu =  styled.div`
     background-color: #151515;
     position: absolute;
     right: 0px;
-    z-index: -1;
     top: ${props => props.status ? '6%': '0%'}; // ! ANIMAÇÃO AQUI
     border-bottom-left-radius: 15px;
     display: flex;
