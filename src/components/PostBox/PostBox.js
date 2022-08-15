@@ -32,6 +32,9 @@ const PostBoxContainer = styled.div`
         font-size: 17px;
         color: #B7B7B7;
     }
+    @media (max-width: 670px) {
+        border-radius: 0px;
+    }
 `
 
 const ProfilePhoto = styled.div`
