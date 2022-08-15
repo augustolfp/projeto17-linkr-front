@@ -14,7 +14,7 @@ export function LoginPage (){
     const { setUserData, userData } = useContext(userDataContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [buttonStatus, setButtonStatus] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
 
@@ -30,10 +30,14 @@ export function LoginPage (){
 
     function logIn (e){
         e.preventDefault();
-        setButtonStatus(true);
+        setIsDisabled(true);
 
+        const body = {
+            email,
+            password
+        }
 
-        axios.post(`${process.env.REACT_APP_API_URL}/signin`, {email, password})
+        axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
     
         .then( res =>{
             console.log(res.data);
@@ -50,7 +54,7 @@ export function LoginPage (){
             } else {
                 alert(err.message);
             }
-            setButtonStatus(false);
+            setIsDisabled(false);
         });
     }
 
@@ -67,12 +71,12 @@ export function LoginPage (){
                 <Form onSubmit={e => logIn(e)}>
                     
                     <Input value={email} onChange={ (e) => setEmail(e.target.value)}
-                    type="email" placeholder="e-mail" required/>
+                    type="email" placeholder="e-mail" disabled={isDisabled} required/>
 
                     <Input  value={password} onChange={ (e) => setPassword(e.target.value)}
-                    type="password" placeholder="password" required/>
+                    type="password" placeholder="password" disabled={isDisabled} required/>
                     
-                    <Button disabled={buttonStatus}>Log In</Button>
+                    <Button disabled={isDisabled}>Log In</Button>
                 </Form>
 
                 <br />

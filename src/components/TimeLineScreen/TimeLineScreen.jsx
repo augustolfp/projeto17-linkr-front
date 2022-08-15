@@ -3,7 +3,8 @@ import userDataContext from "../../contexts/userDataContext";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import PostBox from "../PostBox/PostBox";
+import PostCreator from "../PostCreator/PostCreator";
+import FeedBox from "../FeedBox/FeedBox";
 import InterfaceBackground from "../InterfaceBackground";
 import { BackgroundFeed } from "../BackgroundFeed";
 import { HashtagBox } from "../HashtagBox/HashtagBox";
@@ -42,19 +43,16 @@ export default function TimeLineScreen() {
 
     return(
         <>
-            <HeaderTimeLine/>
-            
-            <BackgroundFeed>
+          <HeaderTimeLine/>
+          <BackgroundFeed>
 
-                <InterfaceBackground type={'timeline'}>
-                    <PostBox />
-                </InterfaceBackground>
+              <InterfaceBackground type={'timeline'}>
+                  <PostCreator />
+                  <FeedBox />
+              </InterfaceBackground>
 
-                <HashtagBox/>
-
-            </BackgroundFeed>
-            
-
+              <HashtagBox/>
+          </BackgroundFeed>
         </>
     );
 }

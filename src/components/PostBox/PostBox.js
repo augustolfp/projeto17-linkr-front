@@ -1,29 +1,18 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
-import userDataContext from "../../contexts/userDataContext";
 
-export default function PostBox() {
-    const [postUrl, setPostUrl] = useState("");
-    const [postDescription,setPostDescription] = useState("");
-    const { userData, setUserData } = useContext(userDataContext);
-    function publishPost(event) {
-        event.preventDefault();
-    }
-
+export default function PostBox(props) {
     return(
-        <PostCreatorContainer>
-            <PerfilPhoto image={userData.pictureUrl}></PerfilPhoto>
-            <Container>
-                <h1>What are you going to share today?</h1>
-                <Form onSubmit={publishPost}> 
-                    <input type="text" placeholder="http://..." onChange={e => setPostUrl(e.target.value)} required/>
-                    <input type="text" placeholder="Awesome article about #javascript" onChange={e => setPostDescription(e.target.value)} required/>
-                    <button type="submit">Publish</button>
-                </Form>
-            </Container>
-        </PostCreatorContainer>
+        <PostBoxContainer>
+            <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+            <ContentContainer>
+            <h2>{props.username}</h2>
+            <h3>{props.text}</h3>
+            {props.url}
+            </ContentContainer>
+        </PostBoxContainer>
     );
 }
+
 
 const PostCreatorContainer = styled.div`
     box-sizing: border-box;
@@ -52,7 +41,27 @@ const Container = styled.div`
     gap: 10px;
 `
 
-const PerfilPhoto = styled.div`
+const PostBoxContainer = styled.div`
+    display: flex;
+    width: 50vw;
+    background-color: #171717;
+    border-radius: 10px;
+    padding: 18px;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+
+    h2 {
+        font-size: 19px;
+    }
+
+    h3 {
+        font-size: 17px;
+        color: #B7B7B7;
+    }
+`
+
+const ProfilePhoto = styled.div`
     border-radius: 50%;
     background: ${props => props.image ? `url(${props.image})` : "white"};
     background-position: center;
@@ -61,34 +70,7 @@ const PerfilPhoto = styled.div`
     height: 40px;
 `
 
-const Form = styled.form`
+const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    width: 100%;
-
-    input {
-        background-color: #EFEFEF;
-        font-family: 'Lato', sans-serif;
-        font-weight: 300;
-        font-size: 15px;
-        border-style: none;
-        border-radius: 5px;
-        padding: 6px 14px;
-        margin: 6px 0px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    button {
-        background-color: #1877F2;
-        color: white;
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-        border-style: none;
-        border-radius: 5px;
-        width: 112px;
-        height: 32px;
-
-    }
 `
