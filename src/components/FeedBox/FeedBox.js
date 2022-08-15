@@ -18,7 +18,10 @@ export default function FeedBox() {
             console.log(answer.data);
         });
 
-        feedRequest.catch(answer => console.log(answer));
+        feedRequest.catch(answer => {
+            console.log(answer);
+            alert("An error occured while trying to fetch the posts, please refresh the page");
+        });
 
     }, [isDisabled]);
 
