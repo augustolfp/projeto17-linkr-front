@@ -12,7 +12,11 @@ export default function PostCreator() {
     function publishPost(event) {
         event.preventDefault();
         setIsDisabled(true);
-        const token = userData.token;
+        const token = {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        }
         const body = {
             postUrl,
             postDescription
