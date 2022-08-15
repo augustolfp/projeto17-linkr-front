@@ -3,6 +3,7 @@ import userDataContext from "../../contexts/userDataContext";
 import PostBox from "../PostBox/PostBox";
 import axios from "axios";
 import PostCreator from "../PostCreator/PostCreator";
+import styled from "styled-components";
 
 export default function FeedBox() {
     const {userData} = useContext(userDataContext);
@@ -32,9 +33,17 @@ export default function FeedBox() {
                 feed.length > 0 ? (
                     feed.map((post, index) => <PostBox key={index} {...post} />)
                 ) : (
-                    <h3>Loading...</h3>
+                    <NoPostsMessage>
+                        There are no posts yet
+                    </NoPostsMessage>
                 )
             }
         </>
     );
 }
+
+const NoPostsMessage = styled.div`
+    font-family: 'Lato', sans-serif;
+    color: white;
+    font-size: 20px;
+`
