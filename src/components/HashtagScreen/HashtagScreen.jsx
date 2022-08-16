@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import userDataContext from "../../contexts/userDataContext";
 import { HeaderTimeLine } from "../HeaderTimeLine";
@@ -15,9 +15,7 @@ export default function HashtagScreen() {
     const token = localStorage.getItem("tokenLinkr");
     const navigate = useNavigate();
 
-    useEffect(() =>{
-        verifyIfTheUserHaveToken()
-    }, [hashtag]);
+    useEffect(verifyIfTheUserHaveToken, [navigate, setUserData, token, userData.token]);
 
     function verifyIfTheUserHaveToken (){
         if(!token && !userData.token ){

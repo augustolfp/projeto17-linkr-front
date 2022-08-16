@@ -26,7 +26,7 @@ export default function PostBox(props) {
                 <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
                     <p>{`${props.text}`}</p>  
                 </Hashtag> 
-                <a href={props.url} target="_blank">
+                <a href={props.url} target="_blank" rel="noreferrer">
                     <ThumbnailContainer>
                         <ThumbnailTextContainer>
                             <h4>{props.urlTitle}</h4>
