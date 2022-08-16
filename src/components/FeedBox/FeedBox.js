@@ -24,7 +24,7 @@ export default function FeedBox() {
             alert("An error occured while trying to fetch the posts, please refresh the page");
         });
 
-    }, [isDisabled]);
+    }, [isDisabled, token]);
 
     return(
         <>

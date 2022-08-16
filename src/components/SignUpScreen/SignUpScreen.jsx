@@ -20,9 +20,9 @@ export default function SignUpScreen(){
     const [buttonStatus, setButtonStatus] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(verifyIfTheUserHaveToken, []);
+    useEffect(effectFunction, [navigate, userData.token]);
 
-    function verifyIfTheUserHaveToken (){
+    function effectFunction (){
         const token = localStorage.getItem("tokenLinkr");
 
         if(userData.token || token){

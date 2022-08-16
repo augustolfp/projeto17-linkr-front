@@ -18,9 +18,9 @@ export function LoginPage (){
     const navigate = useNavigate();
 
 
-    useEffect(verifyIfTheUserHaveToken, []);
+    useEffect(effectFunction, [navigate, userData.token]);
 
-    function verifyIfTheUserHaveToken (){
+    function effectFunction (){
         const token = localStorage.getItem("tokenLinkr");
 
         if(userData.token || token){
@@ -40,7 +40,6 @@ export function LoginPage (){
         axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
     
         .then( res =>{
-            console.log(res.data);
             localStorage.setItem("tokenLinkr", res.data.token);
             setUserData(res.data);
             navigate('/timeline');

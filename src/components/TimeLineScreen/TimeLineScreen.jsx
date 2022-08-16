@@ -14,7 +14,7 @@ export default function TimeLineScreen() {
     const token = localStorage.getItem("tokenLinkr");
 
 
-    useEffect(verifyIfTheUserHaveToken, []);
+    useEffect(verifyIfTheUserHaveToken, [navigate, setUserData, token, userData.token]);
 
     function verifyIfTheUserHaveToken (){
         if(!token && !userData.token ){

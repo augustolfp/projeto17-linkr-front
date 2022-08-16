@@ -17,7 +17,7 @@ export default function FeedBoxHastags({hashtag}) {
             console.log(err)
             navigate('/timeline')
         })
-    }, [hashtag]);
+    }, [hashtag, navigate]);
 
     return(
         <>
