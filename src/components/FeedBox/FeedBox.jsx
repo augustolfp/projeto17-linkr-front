@@ -6,7 +6,7 @@ import axios from "axios";
 import PostCreator from "../PostCreator/PostCreator";
 import styled from "styled-components";
 
-export default function FeedBox() {
+export default function FeedBox(props) {
     const {userData} = useContext(userDataContext);
     const [feed, setFeed] = useState([]);
     const [reRender, setReRender] = useState(0);
@@ -15,23 +15,35 @@ export default function FeedBox() {
 
     useEffect(() => {
         console.log('teste do re-render')
-        const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed`, token);
-
-        feedRequest.then(answer => {
-            setFeed(answer.data);
-        });
-
-        feedRequest.catch(answer => {
-            console.log(answer);
-            alert("An error occured while trying to fetch the posts, please refresh the page");
-        });
+        if(props.userId) {
+            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed/${props.userId}`, token);
+            feedRequest.then(answer => {
+                setFeed(answer.data);
+            });
+    
+            feedRequest.catch(answer => {
+                console.log(answer);
+                alert("An error occured while trying to fetch the posts, please refresh the page");
+            });
+        }
+        else {
+            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed`, token);
+            feedRequest.then(answer => {
+                setFeed(answer.data);
+            });
+    
+            feedRequest.catch(answer => {
+                console.log(answer);
+                alert("An error occured while trying to fetch the posts, please refresh the page");
+            });
+        }
 
     }, [isDisabled, token, reRender]);
 
+
     return(
         <>
-            <PostCreator isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
-
+            { !props.userId && <PostCreator isDisabled={isDisabled} setIsDisabled={setIsDisabled} />}
             {feed.length > 0 ?
                 feed.map((post, index) =>{
                     if(post.userid === userData.id){

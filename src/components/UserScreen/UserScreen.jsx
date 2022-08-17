@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import InterfaceBackground from "../InterfaceBackground";
 import { BackgroundFeed } from "../BackgroundFeed";
+import FeedBox from "../FeedBox/FeedBox";
 
 export default function UserScreen() {
     const {userData, setUserData} = useContext(userDataContext);
@@ -39,6 +40,15 @@ export default function UserScreen() {
     }
 
     return(
-        <h1>Linha do tempo do usuário cujo id é {id}</h1>
+        <>
+        <HeaderTimeLine/>
+        <BackgroundFeed>
+
+            <InterfaceBackground type={'timeline'}>
+                <FeedBox userId={id}/>
+            </InterfaceBackground>
+
+        </BackgroundFeed>
+      </>
     );
 }
