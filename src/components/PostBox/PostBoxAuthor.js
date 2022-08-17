@@ -5,7 +5,8 @@ import { IoMdCreate, IoMdTrash } from "react-icons/io";
 import axios from "axios";
 import userDataContext from '../../contexts/userDataContext';
 import Modal from 'react-modal';
-import { Oval } from  'react-loader-spinner'
+import { Oval } from  'react-loader-spinner';
+import { Link } from "react-router-dom";
 Modal.setAppElement('.root');
 
 export default function PostBoxAuthor(props) {
@@ -90,7 +91,7 @@ export default function PostBoxAuthor(props) {
             <ContentContainer>
 
                 <BoxUsernameAndMenu>
-                    <h2>{props.username}</h2>
+                    <Link to={`/user/${props.userid}`}><h2>{props.username}</h2></Link>
                     <IconsMenu>
                         <IoMdCreate className="icon" color= "white" size="1.2em" onClick={openEditing}/>
                         <IoMdTrash className="icon" color= "white" size="1.2em" onClick={toggleModal}/>
