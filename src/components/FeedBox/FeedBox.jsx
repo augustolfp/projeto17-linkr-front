@@ -8,7 +8,7 @@ import styled from "styled-components";
 import useInterval from 'use-interval'
 import { IoSync } from 'react-icons/io5'
 
-export default function FeedBox() {
+export default function FeedBox(props) {
     const {userData} = useContext(userDataContext);
     const [feed, setFeed] = useState([]);
     const [reRender, setReRender] = useState(0);
@@ -41,19 +41,34 @@ export default function FeedBox() {
     }, 5000);
 
     useEffect(() => {
-        const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed`, token);
 
-        feedRequest.then(answer => {
-            setFeed(answer.data);
-        });
-
-        feedRequest.catch(answer => {
-            console.log(answer);
-            alert("An error occured while trying to fetch the posts, please refresh the page");
-        });
+        console.log('teste do re-render')
+        if(props.userId) {
+            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed/${props.userId}`, token);
+            feedRequest.then(answer => {
+                setFeed(answer.data);
+            });
+    
+            feedRequest.catch(answer => {
+                console.log(answer);
+                alert("An error occured while trying to fetch the posts, please refresh the page");
+            });
+        }
+        else {
+            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed`, token);
+            feedRequest.then(answer => {
+                setFeed(answer.data);
+            });
+    
+            feedRequest.catch(answer => {
+                console.log(answer);
+                alert("An error occured while trying to fetch the posts, please refresh the page");
+            });
+        }
 
     }, [isDisabled, token, reRender]);
-
+    
+    
     function updateFeed(){
         setNotifyPosts({status: false});
         setReRender(Math.random());
@@ -61,7 +76,7 @@ export default function FeedBox() {
 
     return(
         <>
-            <PostCreator isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
+           { !props.userId && <PostCreator isDisabled={isDisabled} setIsDisabled={setIsDisabled} />}
 
             {notifyPosts.status ?
                 <Container onClick={updateFeed}>

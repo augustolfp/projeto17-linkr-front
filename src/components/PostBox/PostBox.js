@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { ReactTagify as Hashtag } from "react-tagify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 export default function PostBox(props) {
 
     const navigate = useNavigate();
-
 
     const tagStyle = {
         color: 'white',
@@ -22,7 +21,7 @@ export default function PostBox(props) {
         <PostBoxContainer>
             <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
             <ContentContainer>
-                <h2>{props.username}</h2>
+                <Link to={`/user/${props.userid}`}><h2>{props.username}</h2></Link>
                 <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
                     <p>{`${props.text}`}</p>  
                 </Hashtag> 
