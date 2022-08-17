@@ -11,7 +11,7 @@ export default function PostCreator(props) {
     function publishPost(event) {
         event.preventDefault();
         props.setIsDisabled(true);
-        const hashtags = getHashTags(postDescription);console.log(hashtags, ' captured hashs');
+        const hashtags = getHashTags(postDescription);
         
         const token = {
             headers: {
