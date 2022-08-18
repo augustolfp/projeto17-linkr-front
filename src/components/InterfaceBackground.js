@@ -25,6 +25,7 @@ const Container = styled.div`
         flex-direction: column;
         gap: 12px;
         align-items: center;
+        width: 100%;
     }
 `
 

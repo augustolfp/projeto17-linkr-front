@@ -1,14 +1,15 @@
+import axios from "axios";
+import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import PostBox from "../PostBox/PostBox";
 import PostBoxAuthor from "../PostBox/PostBoxAuthor";
-import axios from "axios";
 import PostCreator from "../PostCreator/PostCreator";
 import InfiniteScroll from 'react-infinite-scroller';
-import styled from "styled-components";
 import useInterval from 'use-interval';
 import { IoSync } from 'react-icons/io5';
-import { TailSpin } from  'react-loader-spinner'
+import { TailSpin } from  'react-loader-spinner';
+import { NoPostsMessage } from "./styledComponents";
 
 export default function FeedBox(props) {
     const {userData} = useContext(userDataContext);
@@ -67,7 +68,7 @@ export default function FeedBox(props) {
             });
         }
 
-    }, [isDisabled, token, reRender]);
+    }, [isDisabled, token, reRender, props.userId]);
     
     
     function updateFeed(){
@@ -76,7 +77,6 @@ export default function FeedBox(props) {
     }
 
     function loadFunc(){
-        console.log('test')
         const newLimit = feed.length + 10;
         axios.get(`${process.env.REACT_APP_API_URL}/feed/?limit=${newLimit}`, token)
         .then( res =>{ 
@@ -84,10 +84,10 @@ export default function FeedBox(props) {
             if(posts.length === feed.length){
                 return setHasMore(false);
             }
-            setFeed(posts)
+            setFeed(posts);
         })
         .catch( err =>{
-            console.log(err)
+            console.log(err);
         })
     }
 
@@ -120,18 +120,9 @@ export default function FeedBox(props) {
                     :  <NoPostsMessage> There are no posts yet</NoPostsMessage>       
                 }
             </InfiniteScroll>
-
-
-
         </>
     );
 }
-
-const NoPostsMessage = styled.div`
-    font-family: 'Lato', sans-serif;
-    color: white;
-    font-size: 20px;
-`
 
 const Container = styled.div`
     box-sizing: border-box;
