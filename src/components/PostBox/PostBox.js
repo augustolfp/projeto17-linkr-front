@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { ReactTagify as Hashtag } from "react-tagify";
 import { useNavigate, Link } from "react-router-dom";
+import CommentsBox from "../CommentsInterface/CommentsBox";
+import { useState } from "react";
 
 
 export default function PostBox(props) {
 
     const navigate = useNavigate();
+    const [visibleComments, setVisibleComments] = useState(false);
+
 
     const tagStyle = {
         color: 'white',
@@ -18,27 +22,37 @@ export default function PostBox(props) {
     }
 
     return(
-        <PostBoxContainer>
-            <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
-            <ContentContainer>
-                <Link to={`/user/${props.userid}`}><h2>{props.username}</h2></Link>
-                <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
-                    <p>{`${props.text}`}</p>  
-                </Hashtag> 
-                <a href={props.url} target="_blank" rel="noreferrer">
-                    <ThumbnailContainer>
-                        <ThumbnailTextContainer>
-                            <h4>{props.urlTitle}</h4>
-                            <h5>{props.urlDescription}</h5>
-                            <h6>{props.url}</h6>
-                        </ThumbnailTextContainer>
-                        <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
-                    </ThumbnailContainer>
-                </a>
-            </ContentContainer>
-        </PostBoxContainer>
+        <Container>
+            <PostBoxContainer>
+                <div>
+                    <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+                    <button onClick={() => setVisibleComments(!visibleComments)}>MSG</button>
+                </div>
+                <ContentContainer>
+                    <Link to={`/user/${props.userid}`}><h2>{props.username}</h2></Link>
+                    <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
+                        <p>{`${props.text}`}</p>  
+                    </Hashtag> 
+                    <a href={props.url} target="_blank" rel="noreferrer">
+                        <ThumbnailContainer>
+                            <ThumbnailTextContainer>
+                                <h4>{props.urlTitle}</h4>
+                                <h5>{props.urlDescription}</h5>
+                                <h6>{props.url}</h6>
+                            </ThumbnailTextContainer>
+                            <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
+                        </ThumbnailContainer>
+                    </a>
+                </ContentContainer>
+            </PostBoxContainer>
+            {visibleComments && <CommentsBox postId={props.id} />}
+        </Container>
     );
 }
+
+const Container = styled.div`
+
+`
 
 const PostBoxContainer = styled.div`
     box-sizing: border-box;
