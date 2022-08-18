@@ -20,7 +20,12 @@ const Container = styled.div`
         width: 100%;
         max-width: 100%;
     }
-
+    .stylesScroller{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
 `
 
 const TitleTimeline = styled.h3`

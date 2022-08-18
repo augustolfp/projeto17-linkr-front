@@ -8,6 +8,7 @@ import PostBoxAuthor from "../PostBox/PostBoxAuthor";
 
 export default function FeedBoxHastags({hashtag}) {
     const { userData } = useContext(userDataContext);
+    const [reRender, setReRender] = useState(0);
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate
 
@@ -20,14 +21,14 @@ export default function FeedBoxHastags({hashtag}) {
             console.log(err)
             navigate('/timeline')
         })
-    }, [hashtag, navigate]);
+    }, [hashtag, navigate, reRender]);
 
     return(
         <>
             {posts.length > 0 ?
                 posts.map((post, index) =>{
                     if(post.userid === userData.id){
-                        return <PostBoxAuthor key={post.id} {...post} />
+                        return <PostBoxAuthor setReRender={setReRender} key={post.id} {...post} />
                     } else {
                         return <PostBox key={post.id} {...post} />
                     }
