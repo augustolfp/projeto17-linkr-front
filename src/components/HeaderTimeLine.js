@@ -3,6 +3,7 @@ import userDataContext  from '../contexts/userDataContext';
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox/SearchBox";
 
 export function HeaderTimeLine(){
     const [menuEnable, setMenuEnable ] = useState(false);
@@ -32,6 +33,8 @@ export function HeaderTimeLine(){
             <BackgroundHeader>
 
             <BoxTitle onClick={backHome}>linkr</BoxTitle>
+
+            <SearchBox />
 
             <MenuBox status={menuEnable} >
                 <IoIosArrowDown  className="arrow" color= "white" size="1.5em" onClick={openMenu}/>
