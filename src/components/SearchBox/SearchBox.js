@@ -23,34 +23,38 @@ export default function SearchBox() {
     }, [searchTerm]);
 
     return(
-        <SearchInterface>
-            <DebounceInput minLength={3} debounceTimeout={300} value={searchTerm} placeholder="Search for people" onChange={e => setSearchTerm(e.target.value)} />
-            <SearchResultBox>
-                {
-                    searchResults.length > 0 ? (
-                        searchResults.map((result, index) =>
-                        <Link to={`/user/${result.id}`}>
-                            <UserResultThumbnail key={index}>
-                                <ProfilePhoto image={result.pictureUrl}></ProfilePhoto>
-                                {result.username}
-                            </UserResultThumbnail>
-                        </Link>)
-                    ) : (
-                        <div>nenhum resultado!</div>
-                    )
-                }
-            </SearchResultBox>
-        </SearchInterface>
+        <Container>
+            <SearchInterface>
+                <DebounceInput minLength={3} debounceTimeout={300} value={searchTerm} placeholder="Search for people" onChange={e => setSearchTerm(e.target.value)} />
+                <SearchResultBox>
+                    {
+                        searchResults.length > 0 ? (
+                            searchResults.map((result, index) =>
+                            <Link to={`/user/${result.id}`}>
+                                <UserResultThumbnail key={index}>
+                                    <ProfilePhoto image={result.pictureUrl}></ProfilePhoto>
+                                    {result.username}
+                                </UserResultThumbnail>
+                            </Link>)
+                        ) : (
+                            <div>nenhum resultado!</div>
+                        )
+                    }
+                </SearchResultBox>
+            </SearchInterface>
+        </Container>
     );
 }
 
 const SearchInterface = styled.div`
+    position: absolute;
+    top: 0;
     background: #E7E7E7;
     border-radius: 8px;
 
     input {
         box-sizing: border-box;
-        width: 560px;
+        width: 30vw;
         height: 46px;
         border-radius: 8px;
         border-style: none;
@@ -87,4 +91,10 @@ const ProfilePhoto = styled.div`
 const UserResultThumbnail = styled.div`
     display: flex;
     align-items: center;
+`
+
+const Container = styled.div`
+    position: relative;
+    width: 40vw;
+    height: 46px;
 `
