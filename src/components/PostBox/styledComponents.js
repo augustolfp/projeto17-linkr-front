@@ -113,6 +113,9 @@ export const RepostBox = styled.div`
         font-size: 11px;
         font-weight: bold;
     }
+    &:hover{
+        filter: opacity(60%);
+    }
 `
 
 export const ModalStyle = styled.div`
