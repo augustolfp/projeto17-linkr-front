@@ -82,19 +82,79 @@ export const ThumbnailTextContainer = styled.div`
 `
 
 export const ThumbnailPhoto = styled.div`
-width: 150px;
-background: ${props => props.image ? `url(${props.image})` : "white"};
-background-position: center;
-background-size: contain;
-background-repeat: no-repeat;
+    width: 150px;
+    background: ${props => props.image ? `url(${props.image})` : "white"};
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 `
 
 export const ContainerPicture =styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    gap: 15px;
+    align-items: center;
 `
+
+export const RepostBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+        font-family: 'Lato', cursive;
+        font-size: 11px;
+        font-weight: bold;
+    }
+`
+
+export const ModalStyle = styled.div`
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-top: 10%;
+    color: white;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    gap: 20px;
+    h2{
+        font-weight: bold;
+        font-family: 'Lato';
+        text-align: center;
+    }
+    .buttons{
+        display: flex;
+        gap: 10px;
+        color: white; 
+    }
+    .button{
+        box-sizing: border-box;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: 'Lato';
+    }
+`
+export const customStylesModal = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "#333",
+      borderRadius: "50px",
+      width: '60%',
+      height: '30%',
+      overflow: 'hidden'
+    },
+    overlay: {zIndex: 1000}
+};
 
 export const IconsMenu = styled.div`
     display: flex;
@@ -127,3 +187,4 @@ export const CommentAndPostContainer = styled.div`
     box-sizing: border-box;
     background-color: #1e1e1e;
 `
+

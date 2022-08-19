@@ -3,6 +3,7 @@ import { Oval } from  'react-loader-spinner';
 import { Link } from "react-router-dom";
 import { Editable } from "../Editable";
 import { IoMdCreate, IoMdTrash } from "react-icons/io";
+import { ImLoop } from "react-icons/im";
 import userDataContext from '../../contexts/userDataContext';
 import {AiOutlineComment} from "react-icons/ai";
 import Modal from 'react-modal';
@@ -18,7 +19,10 @@ import {
     CommentAndPostContainer,
     ThumbnailTextContainer,
     ThumbnailPhoto,
-    CommentsIcon
+    RepostBox,
+    ModalStyle,
+    CommentsIcon,
+    customStylesModal
  } from "./styledComponents";
 
 
@@ -59,28 +63,11 @@ export default function PostBoxAuthor(props) {
 
     function closeModal(){  setIsOpen(false) }
 
-    const customStyles = {
-        content: {
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: "#333",
-          borderRadius: "50px",
-          width: '60%',
-          height: '30%',
-          overflow: 'hidden'
-        },
-        overlay: {zIndex: 1000}
-    };
-
     return(
         <CommentAndPostContainer>
             <PostBoxContainer>
 
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} >
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStylesModal} >
                 <ModalStyle>
                     {
                         loading ? <Oval height={50} width={50} color="#1877F2" secondaryColor="#fff" strokeWidth={3}/>
@@ -104,10 +91,17 @@ export default function PostBoxAuthor(props) {
 
             <ContainerPicture>
                 <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+                
                 <CommentsIcon onClick={() => setVisibleComments(!visibleComments)}>
                     <AiOutlineComment />
                     <h4>Comments</h4>
                 </CommentsIcon>
+                
+                <RepostBox>
+                    <ImLoop/>
+                    <span>{props.reposts} re-posts</span>
+                </RepostBox>
+
             </ContainerPicture>
 
             <ContentContainer>
@@ -148,39 +142,6 @@ export default function PostBoxAuthor(props) {
     );
 }
 
-
-
-const ModalStyle = styled.div`
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    margin-top: 10%;
-    color: white;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    gap: 20px;
-    h2{
-        font-weight: bold;
-        font-family: 'Lato';
-        text-align: center;
-    }
-    .buttons{
-        display: flex;
-        gap: 10px;
-        color: white; 
-    }
-    .button{
-        box-sizing: border-box;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        font-family: 'Lato';
-    }
-`
 
 const BoxUsernameAndMenu = styled.div`
     display: flex;

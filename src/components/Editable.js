@@ -37,7 +37,6 @@ export function Editable ({text, isEditing, setIsEditing, setNewText, newText, p
                 setInputDisabled(false);
                 setIsEditing(false);
                 setRender(Math.random());
-                console.log(res);
             })
 
             .catch( err =>{
