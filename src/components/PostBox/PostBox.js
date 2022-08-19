@@ -55,7 +55,7 @@ export default function PostBox(props) {
         axios.post(`${process.env.REACT_APP_API_URL}/repost/${props.id}`, '',token)
 
         .then( res  =>{
-            console.log(res)
+            toggleModal(res)
         })
 
         .catch( err  =>{
