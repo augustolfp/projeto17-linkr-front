@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import axios from "axios";
+import {TbSend} from "react-icons/tb";
 
 export default function CommentCreator(props) {
     const [commentText, setCommentText] = useState("");
@@ -35,13 +36,70 @@ export default function CommentCreator(props) {
     }
 
     return(
-        <Form onSubmit={publishComment}>
-            <input type="text" name="text" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="write a comment..." />
-            <button type="submit">enviar</button>
-        </Form>
+        <Container>
+            <ProfilePhoto image={userData.pictureUrl}></ProfilePhoto>
+            <FormContainer>
+            <Form onSubmit={publishComment}>
+                <input type="text" name="text" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="write a comment..." />
+                <button type="submit"><TbSend/></button>
+                
+            </Form>
+            </FormContainer>
+        </Container>
     );
 }
 
 const Form = styled.form`
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    input {
+        background-color: #252525;
+        font-family: 'Lato', sans-serif;
+        font-style: italic;
+        font-size: 14px;
+        color: #575757;
+        border-style: none;
+        width: 100%;
+        height: 39px;
+        border-radius: 8px;
+        padding-left: 15px;
+    }
 
+    button {
+        position: absolute;
+        right: 6px;;
+        background: none;
+        border: none;
+        padding: 0;
+
+        > svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+    }
+`
+
+const ProfilePhoto = styled.div`
+    border-radius: 50%;
+    background: ${props => props.image ? `url(${props.image})` : "white"};
+    background-position: center;
+    background-size: cover;
+    width: 39px;
+    height: 39px;
+    margin-right: 8px;
+    
+`
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 15px 25px;
+    padding-bottom: 12px;
+`
+const FormContainer = styled.div`
+    width: 100%;
+    box-sizing: border-box;
 `
