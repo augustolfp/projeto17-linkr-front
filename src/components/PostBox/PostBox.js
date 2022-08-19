@@ -1,7 +1,11 @@
 import { ReactTagify as Hashtag } from "react-tagify";
+import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import CommentsBox from "../CommentsInterface/CommentsBox";
-import { useState } from "react";
+import { Oval } from  'react-loader-spinner';
+import { useContext, useState } from "react";
+import { ImLoop } from "react-icons/im";
+import Modal from 'react-modal';
 import { 
     PostBoxContainer,
     ContainerPicture,
@@ -9,14 +13,23 @@ import {
     ContentContainer,
     ThumbnailContainer,
     ThumbnailTextContainer,
-    ThumbnailPhoto
- } from "./styledComponents"
+    ThumbnailPhoto,
+    ModalStyle,
+    customStylesModal
+ } from "./styledComponents";
+import axios from "axios";
+import userDataContext from "../../contexts/userDataContext";
 
+
+
+Modal.setAppElement('.root');
 export default function PostBox(props) {
-
     const navigate = useNavigate();
     const [visibleComments, setVisibleComments] = useState(false);
-
+    const { userData } = useContext(userDataContext);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const token = { headers: { Authorization: `Bearer ${userData.token}`}};
 
     const tagStyle = {
         color: 'white',
@@ -28,11 +41,58 @@ export default function PostBox(props) {
         navigate(`/hashtag/${hashtag.replace('#','')}`);
     }
 
+    function toggleModal(){ setIsOpen(!modalIsOpen) }
+
+    function closeModal(){  setIsOpen(false) }
+
+    function rePost(){
+        axios.post(`${process.env.REACT_APP_API_URL}/repost/${props.id}`, '',token)
+
+        .then( res  =>{
+            console.log(res)
+        })
+
+        .catch( err  =>{
+            console.log(err)
+        })
+    }
+
+
+    
     return(
         <PostBoxContainer>
 
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStylesModal} >
+                <ModalStyle>
+                    {
+                        loading ? <Oval height={50} width={50} color="#1877F2" secondaryColor="#fff" strokeWidth={3}/>
+                        :
+                        <>
+                            <h2>Do you want to re-post this link?</h2>
+
+                            <div className="buttons" >
+                                <button style={{ color: '#1877F2'}}
+                                onClick={toggleModal}
+                                className="button">No, cancel</button>
+
+                                <button style={{ backgroundColor: '#1877F2', color: '#FFF'}}
+                                onClick={ () =>{rePost()}}
+                                className="button">Yes, share!</button>
+                            </div>
+                        </>
+                    }
+                </ModalStyle>
+            </Modal>
+
             <ContainerPicture>
+
                 <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+
+                <RepostBox onClick={toggleModal}>
+                    <ImLoop/>
+                    <span>{props.reposts} re-posts</span>
+                </RepostBox>
+                
             </ContainerPicture>
             
             <ContentContainer>
@@ -59,3 +119,18 @@ export default function PostBox(props) {
         </PostBoxContainer>
     );
 }
+
+export const RepostBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+        font-family: 'Lato', cursive;
+        font-size: 11px;
+        font-weight: bold;
+    }
+    &:hover{
+        filter: opacity(60%);
+        cursor: pointer;
+    }
+`
