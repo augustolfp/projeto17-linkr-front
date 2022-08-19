@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function SearchBox() {
     const [searchTerm, setSearchTerm]  = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [visible, setVisible] = useState(false);
 
 
     useEffect(() => {
@@ -22,35 +23,47 @@ export default function SearchBox() {
         }
     }, [searchTerm]);
 
+    function handleResults() {
+        if(searchResults.length > 0 && searchTerm.length >= 3) {
+            return(
+                searchResults.map((result, index) =>
+                    <Link to={`/user/${result.id}`} key={index}>
+                        <UserResultThumbnail>
+                            <ProfilePhoto image={result.pictureUrl}></ProfilePhoto>
+                            {result.username}
+                        </UserResultThumbnail>
+                    </Link>)
+            );
+        }
+
+        if(searchResults.length === 0 && searchTerm.length >=3) {
+            return(
+                <UserResultThumbnail>No results!</UserResultThumbnail>
+            );
+        }
+    }
+
     return(
-        <SearchInterface>
-            <DebounceInput minLength={3} debounceTimeout={300} value={searchTerm} placeholder="Search for people" onChange={e => setSearchTerm(e.target.value)} />
-            <SearchResultBox>
-                {
-                    searchResults.length > 0 ? (
-                        searchResults.map((result, index) =>
-                        <Link to={`/user/${result.id}`}>
-                            <UserResultThumbnail key={index}>
-                                <ProfilePhoto image={result.pictureUrl}></ProfilePhoto>
-                                {result.username}
-                            </UserResultThumbnail>
-                        </Link>)
-                    ) : (
-                        <div>nenhum resultado!</div>
-                    )
-                }
-            </SearchResultBox>
-        </SearchInterface>
+        <Container>
+            <SearchInterface>
+                <DebounceInput minLength={3} debounceTimeout={300} value={searchTerm} placeholder="Search for people" onChange={e => setSearchTerm(e.target.value)} />
+                <SearchResultBox>
+                    {handleResults()}
+                </SearchResultBox>
+            </SearchInterface>
+        </Container>
     );
 }
 
 const SearchInterface = styled.div`
+    position: absolute;
+    top: 0;
     background: #E7E7E7;
     border-radius: 8px;
 
     input {
         box-sizing: border-box;
-        width: 560px;
+        width: 30vw;
         height: 46px;
         border-radius: 8px;
         border-style: none;
@@ -63,7 +76,6 @@ const SearchInterface = styled.div`
 `
 
 const SearchResultBox = styled.div`
-    margin: 17px;
     font-family: 'Lato', sans-serif;
     font-size: 19px;
     color: #515151;
@@ -85,6 +97,13 @@ const ProfilePhoto = styled.div`
 `
 
 const UserResultThumbnail = styled.div`
+    margin: 10px;
     display: flex;
     align-items: center;
+`
+
+const Container = styled.div`
+    position: relative;
+    width: 40vw;
+    height: 46px;
 `
