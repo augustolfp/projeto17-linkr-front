@@ -32,5 +32,5 @@ export default function CommentsBox(props) {
 }
 
 const Container = styled.div`
-
+    background-color: #1e1e1e;
 `

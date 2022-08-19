@@ -5,12 +5,12 @@ export const PostBoxContainer = styled.div`
     display: flex;
     width: 100%;
     background-color: #171717;
-    border-radius: 20px;
     padding: 15px;
     color: white;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     gap: 15px;
+    border-radius: 16px;
     @media (max-width: 670px) {
         border-radius: 0px;
     }
@@ -96,10 +96,6 @@ align-items: center;
 width: 60px;
 `
 
-export const CommentAndPostContainer = styled.div`
-
-`
-
 export const IconsMenu = styled.div`
     display: flex;
     gap: 5px;
@@ -124,4 +120,10 @@ export const CommentsIcon = styled.div`
             width: 25px;
             height: 25px;
         }
+`
+
+export const CommentAndPostContainer = styled.div`
+    border-radius: 16px;
+    box-sizing: border-box;
+    background-color: #1e1e1e;
 `
