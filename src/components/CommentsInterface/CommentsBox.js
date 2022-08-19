@@ -8,7 +8,9 @@ export default function CommentsBox(props) {
 
     const [comments, setComments] = useState([]);
 
+
     useEffect(() => {
+        console.log("render!");
         const getMessages = axios.get(`${process.env.REACT_APP_API_URL}/comments/${props.postId}`);
         getMessages.then(answer => {
             setComments(answer.data);
@@ -32,5 +34,5 @@ export default function CommentsBox(props) {
 }
 
 const Container = styled.div`
-    background-color: #1e1e1e;
+    
 `
