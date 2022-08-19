@@ -40,7 +40,8 @@ export default function PostBox(props) {
     const tagStyle = {
         color: 'white',
         cursor: 'pointer',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        cursor: 'pointer',
     };
 
     function openHashtagScrenn(hashtag){
@@ -55,7 +56,7 @@ export default function PostBox(props) {
         axios.post(`${process.env.REACT_APP_API_URL}/repost/${props.id}`, '',token)
 
         .then( res  =>{
-            console.log(res)
+            toggleModal(res)
         })
 
         .catch( err  =>{
@@ -108,11 +109,11 @@ export default function PostBox(props) {
                 
                 <ContentContainer>
                     <Link to={`/user/${props.userid}`}>
-                        <h2>{props.username}</h2>
+                        <h2 className="userName">{props.username}</h2>
                     </Link>
 
                     <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
-                        <p>{`${props.text}`}</p>  
+                        <p className="text" >{`${props.text}`}</p>  
                     </Hashtag>
 
                     <a href={props.url} target="_blank" rel="noreferrer">
