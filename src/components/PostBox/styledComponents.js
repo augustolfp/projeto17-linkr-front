@@ -24,6 +24,7 @@ export const ProfilePhoto = styled.div`
     width: 50px;
     height: 50px;
     background-color: red;
+    margin-bottom: 8px;
 `
 
 export const ContentContainer = styled.div`
@@ -91,6 +92,36 @@ background-repeat: no-repeat;
 export const ContainerPicture =styled.div`
 display: flex;
 flex-direction: column;
-width: 50px;
+align-items: center;
+width: 60px;
 `
 
+export const CommentAndPostContainer = styled.div`
+
+`
+
+export const IconsMenu = styled.div`
+    display: flex;
+    gap: 5px;
+    .icon{
+        cursor: pointer;
+    }
+    .icon:hover{
+        fill-opacity: calc(60%);
+    }
+`
+
+export const CommentsIcon = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    h4 {
+        font-family: 'Lato', sans-serif;
+        font-size: 11px;
+    }
+    > svg {
+            width: 25px;
+            height: 25px;
+        }
+`
