@@ -10,6 +10,7 @@ export default function CommentCreator(props) {
 
     function publishComment(event) {
         event.preventDefault();
+        props.setIsDisabled(true);
 
         const token = {
             headers: {
@@ -25,11 +26,14 @@ export default function CommentCreator(props) {
         const sendComment = axios.post(`${process.env.REACT_APP_API_URL}/publishcomment`, body, token);
 
         sendComment.then(() => {
+            props.setIsDisabled(false);
+            setCommentText("");
             console.log("Comentário enviado com sucesso");
         });
 
         sendComment.catch(() => {
             console.log("Erro ao enviar o comentário");
+            props.setIsDisabled(false);
         });
 
 
@@ -40,8 +44,8 @@ export default function CommentCreator(props) {
             <ProfilePhoto image={userData.pictureUrl}></ProfilePhoto>
             <FormContainer>
             <Form onSubmit={publishComment}>
-                <input type="text" name="text" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="write a comment..." />
-                <button type="submit"><TbSend/></button>
+                <input type="text" name="text" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="write a comment..." disabled={props.isDisabled} />
+                <button type="submit" disabled={props.isDisabled}><TbSend/></button>
                 
             </Form>
             </FormContainer>
