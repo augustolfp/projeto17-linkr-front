@@ -7,6 +7,7 @@ import CommentCreator from "./CommentCreator";
 export default function CommentsBox(props) {
 
     const [comments, setComments] = useState([]);
+    const [isDisabled, setIsDisabled] = useState(false);
 
 
     useEffect(() => {
@@ -19,7 +20,7 @@ export default function CommentsBox(props) {
         getMessages.catch(answer => {
             console.log(answer);
         })
-    }, []);
+    }, [isDisabled]);
 
     return(
         <Container>
@@ -28,7 +29,7 @@ export default function CommentsBox(props) {
                     comments.map((comment, index) => <CommentLayout key={index} {...comment} />)
                 )
             }
-            <CommentCreator postId={props.postId} />
+            <CommentCreator postId={props.postId} isDisabled={isDisabled} setIsDisabled={setIsDisabled}/>
         </Container>
     );
 }
