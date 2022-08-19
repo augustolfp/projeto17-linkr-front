@@ -6,6 +6,8 @@ import { Oval } from  'react-loader-spinner';
 import { useContext, useState } from "react";
 import { ImLoop } from "react-icons/im";
 import Modal from 'react-modal';
+import {AiOutlineComment} from "react-icons/ai";
+
 import { 
     PostBoxContainer,
     ContainerPicture,
@@ -14,11 +16,15 @@ import {
     ThumbnailContainer,
     ThumbnailTextContainer,
     ThumbnailPhoto,
+    CommentAndPostContainer,
+    IconsMenu,
+    CommentsIcon,
     ModalStyle,
     customStylesModal
  } from "./styledComponents";
 import axios from "axios";
 import userDataContext from "../../contexts/userDataContext";
+
 
 
 
@@ -60,10 +66,11 @@ export default function PostBox(props) {
 
     
     return(
-        <PostBoxContainer>
-
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStylesModal} >
-                <ModalStyle>
+        <CommentAndPostContainer>
+        
+            <PostBoxContainer>
+               <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStylesModal} >
+                  <ModalStyle>
                     {
                         loading ? <Oval height={50} width={50} color="#1877F2" secondaryColor="#fff" strokeWidth={3}/>
                         :
@@ -81,42 +88,48 @@ export default function PostBox(props) {
                             </div>
                         </>
                     }
-                </ModalStyle>
-            </Modal>
-
-            <ContainerPicture>
-
-                <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
-
-                <RepostBox onClick={toggleModal}>
-                    <ImLoop/>
-                    <span>{props.reposts} re-posts</span>
-                </RepostBox>
+                  </ModalStyle>
+                </Modal>
                 
-            </ContainerPicture>
-            
-            <ContentContainer>
-                <Link to={`/user/${props.userid}`}>
-                    <h2>{props.username}</h2>
-                </Link>
-
-                <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
-                    <p>{`${props.text}`}</p>  
-                </Hashtag>
-
-                <a href={props.url} target="_blank" rel="noreferrer">
-                    <ThumbnailContainer>
-                        <ThumbnailTextContainer>
-                            <h4>{props.urlTitle}</h4>
-                            <h5>{props.urlDescription}</h5>
-                            <h6>{props.url}</h6>
-                        </ThumbnailTextContainer>
-                        <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
-                    </ThumbnailContainer>
-                </a>
+                <ContainerPicture>
+                    <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+                    
+                    <CommentsIcon onClick={() => setVisibleComments(!visibleComments)}>
+                        <AiOutlineComment />
+                        <h4>Comments</h4>
+                    </CommentsIcon>
+                    
+                    <RepostBox onClick={toggleModal}>
+                        <ImLoop/>
+                        <span>{props.reposts} re-posts</span>
+                    </RepostBox>
+                    
+                </ContainerPicture>
                 
-            </ContentContainer>
-        </PostBoxContainer>
+                <ContentContainer>
+                    <Link to={`/user/${props.userid}`}>
+                        <h2>{props.username}</h2>
+                    </Link>
+
+                    <Hashtag tagStyle={tagStyle} tagClicked={ hashtag => openHashtagScrenn(hashtag)}>
+                        <p>{`${props.text}`}</p>  
+                    </Hashtag>
+
+                    <a href={props.url} target="_blank" rel="noreferrer">
+                        <ThumbnailContainer>
+                            <ThumbnailTextContainer>
+                                <h4>{props.urlTitle}</h4>
+                                <h5>{props.urlDescription}</h5>
+                                <h6>{props.url}</h6>
+                            </ThumbnailTextContainer>
+                            <ThumbnailPhoto image={props.urlThumbnail}></ThumbnailPhoto> 
+                        </ThumbnailContainer>
+                    </a>
+                    
+                </ContentContainer>
+            </PostBoxContainer>
+            {visibleComments && <CommentsBox postId={props.id} />}
+        </CommentAndPostContainer>
     );
 }
 

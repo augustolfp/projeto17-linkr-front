@@ -5,8 +5,10 @@ import { Editable } from "../Editable";
 import { IoMdCreate, IoMdTrash } from "react-icons/io";
 import { ImLoop } from "react-icons/im";
 import userDataContext from '../../contexts/userDataContext';
+import {AiOutlineComment} from "react-icons/ai";
 import Modal from 'react-modal';
 import axios from "axios";
+import CommentsBox from "../CommentsInterface/CommentsBox";
 import styled from "styled-components";
 import { 
     PostBoxContainer,
@@ -14,10 +16,12 @@ import {
     ProfilePhoto,
     ContentContainer,
     ThumbnailContainer,
+    CommentAndPostContainer,
     ThumbnailTextContainer,
     ThumbnailPhoto,
     RepostBox,
     ModalStyle,
+    CommentsIcon,
     customStylesModal
  } from "./styledComponents";
 
@@ -29,6 +33,7 @@ export default function PostBoxAuthor(props) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const {userData} = useContext(userDataContext);
     const [loading, setLoading] = useState(false);
+    const [visibleComments, setVisibleComments] = useState(false);
     const postId = props.id;
 
     function openEditing (){
@@ -59,7 +64,8 @@ export default function PostBoxAuthor(props) {
     function closeModal(){  setIsOpen(false) }
 
     return(
-        <PostBoxContainer>
+        <CommentAndPostContainer>
+            <PostBoxContainer>
 
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStylesModal} >
                 <ModalStyle>
@@ -85,10 +91,17 @@ export default function PostBoxAuthor(props) {
 
             <ContainerPicture>
                 <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+                
+                <CommentsIcon onClick={() => setVisibleComments(!visibleComments)}>
+                    <AiOutlineComment />
+                    <h4>Comments</h4>
+                </CommentsIcon>
+                
                 <RepostBox>
                     <ImLoop/>
                     <span>{props.reposts} re-posts</span>
                 </RepostBox>
+
             </ContainerPicture>
 
             <ContentContainer>
@@ -123,7 +136,9 @@ export default function PostBoxAuthor(props) {
 
             </ContentContainer>
 
-        </PostBoxContainer>
+            </PostBoxContainer>
+            {visibleComments && <CommentsBox postId={props.id} />}
+        </CommentAndPostContainer>
     );
 }
 
