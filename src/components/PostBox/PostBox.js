@@ -1,5 +1,7 @@
 import { ReactTagify as Hashtag } from "react-tagify";
 import { useNavigate, Link } from "react-router-dom";
+import CommentsBox from "../CommentsInterface/CommentsBox";
+import { useState } from "react";
 import { 
     PostBoxContainer,
     ContainerPicture,
@@ -13,6 +15,8 @@ import {
 export default function PostBox(props) {
 
     const navigate = useNavigate();
+    const [visibleComments, setVisibleComments] = useState(false);
+
 
     const tagStyle = {
         color: 'white',
