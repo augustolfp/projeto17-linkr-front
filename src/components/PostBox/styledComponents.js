@@ -44,6 +44,9 @@ export const ContentContainer = styled.div`
         color: inherit;
         text-decoration: inherit;
     }
+    a:hover{
+        filter: opacity(60%);
+    }
 `
 
 export const ThumbnailContainer = styled.div`
@@ -53,6 +56,10 @@ export const ThumbnailContainer = styled.div`
     border: 1px solid darkgray;
     padding: 10px;
     border-radius: 10px;
+    &:hover{
+        background-color: black;
+        filter: opacity(80%);
+    }
 `
 
 export const ThumbnailTextContainer = styled.div`
@@ -172,6 +179,7 @@ export const CommentsIcon = styled.div`
     flex-direction: column;
     align-items: center;
     width: 60px;
+    cursor: pointer;
     h4 {
         font-family: 'Lato', sans-serif;
         font-size: 11px;
@@ -179,6 +187,10 @@ export const CommentsIcon = styled.div`
     > svg {
             width: 25px;
             height: 25px;
+            &:hover{
+                filter: opacity(60%);
+                
+            }
         }
 `
 
@@ -186,5 +198,6 @@ export const CommentAndPostContainer = styled.div`
     border-radius: 16px;
     box-sizing: border-box;
     background-color: #1e1e1e;
+    width: 100%;
 `
 
