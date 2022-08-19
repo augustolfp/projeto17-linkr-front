@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import PostBox from "../PostBox/PostBox";
 import userDataContext from "../../contexts/userDataContext";
 import axios from "axios";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PostBoxAuthor from "../PostBox/PostBoxAuthor";
+import { NoPostsMessage } from "./styledComponents";
 
 export default function FeedBoxHastags({hashtag}) {
     const { userData } = useContext(userDataContext);
+    const [reRender, setReRender] = useState(0);
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate
 
@@ -20,14 +21,14 @@ export default function FeedBoxHastags({hashtag}) {
             console.log(err)
             navigate('/timeline')
         })
-    }, [hashtag, navigate]);
+    }, [hashtag, navigate, reRender]);
 
     return(
         <>
             {posts.length > 0 ?
                 posts.map((post, index) =>{
                     if(post.userid === userData.id){
-                        return <PostBoxAuthor key={post.id} {...post} />
+                        return <PostBoxAuthor setReRender={setReRender} key={post.id} {...post} />
                     } else {
                         return <PostBox key={post.id} {...post} />
                     }
@@ -37,9 +38,3 @@ export default function FeedBoxHastags({hashtag}) {
         </>
     );
 }
-
-const NoPostsMessage = styled.div`
-    font-family: 'Lato', sans-serif;
-    color: white;
-    font-size: 20px;
-`

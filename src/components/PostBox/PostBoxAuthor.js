@@ -1,14 +1,24 @@
-import styled from "styled-components";
 import { useContext, useState } from "react";
-import { Editable } from "../Editable";
-import { IoMdCreate, IoMdTrash } from "react-icons/io";
-import axios from "axios";
-import userDataContext from '../../contexts/userDataContext';
-import Modal from 'react-modal';
 import { Oval } from  'react-loader-spinner';
 import { Link } from "react-router-dom";
-Modal.setAppElement('.root');
+import { Editable } from "../Editable";
+import { IoMdCreate, IoMdTrash } from "react-icons/io";
+import userDataContext from '../../contexts/userDataContext';
+import Modal from 'react-modal';
+import axios from "axios";
+import styled from "styled-components";
+import { 
+    PostBoxContainer,
+    ContainerPicture,
+    ProfilePhoto,
+    ContentContainer,
+    ThumbnailContainer,
+    ThumbnailTextContainer,
+    ThumbnailPhoto
+ } from "./styledComponents";
 
+
+Modal.setAppElement('.root');
 export default function PostBoxAuthor(props) {
     const [newText, setNewText] = useState(props.text);
     const [isEditing, setIsEditing] = useState(false);
@@ -86,7 +96,9 @@ export default function PostBoxAuthor(props) {
                 </ModalStyle>
             </Modal>
 
-            <ProfilePhoto image={props.userPictureUrl}/>
+            <ContainerPicture>
+                <ProfilePhoto image={props.userPictureUrl}></ProfilePhoto>
+            </ContainerPicture>
 
             <ContentContainer>
 
@@ -124,21 +136,7 @@ export default function PostBoxAuthor(props) {
     );
 }
 
-const PostBoxContainer = styled.div`
-    box-sizing: border-box;
-    display: flex;
-    width: 100%;
-    background-color: #171717;
-    border-radius: 20px;
-    padding: 15px;
-    color: white;
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    gap: 15px;
-    @media (max-width: 670px) {
-        border-radius: 0px;
-    }
-`
+
 
 const ModalStyle = styled.div`
     overflow: hidden;
@@ -170,67 +168,6 @@ const ModalStyle = styled.div`
         cursor: pointer;
         font-family: 'Lato';
     }
-`
-
-const ProfilePhoto = styled.div`
-    border-radius: 50%;
-    background: ${props => props.image ? `url(${props.image})` : "white"};
-    background-position: center;
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-`
-
-const ContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-    h2 {
-        font-size: 19px;
-    }
-    p {
-        font-size: 1em;
-        color: #B7B7B7;
-    }
-    a {
-        color: inherit;
-        text-decoration: inherit;
-    }
-`
-
-const ThumbnailContainer = styled.div`
-    display: flex;
-`
-
-const ThumbnailTextContainer = styled.div`
-    width: 200px;
-
-    h4 , h5, h6 {
-        font-family: 'Lato', sans-serif;
-    }
-
-    h4 {
-        font-size: 16px;
-        color: #cecece;
-    }
-
-    h5 {
-        font-size: 11px;
-        color: #9B9595;
-    }
-
-    h6 {
-        font-size: 11px;
-        color: #cecece;
-    }
-`
-
-const ThumbnailPhoto = styled.div`
-    width: 150px;
-    background: ${props => props.image ? `url(${props.image})` : "white"};
-    background-position: center;
-    background-size: cover;
 `
 
 const BoxUsernameAndMenu = styled.div`

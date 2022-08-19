@@ -90,6 +90,7 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     gap: 5px;
+    overflow: hidden;
 `
 
 const ProfilePhoto = styled.div`
@@ -97,7 +98,7 @@ const ProfilePhoto = styled.div`
     background: ${props => props.image ? `url(${props.image})` : "white"};
     background-position: center;
     background-size: cover;
-    width: 40px;
+    width: 45px;
     height: 40px;
 `
 

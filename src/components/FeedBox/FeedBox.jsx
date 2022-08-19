@@ -1,23 +1,27 @@
+import axios from "axios";
+import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 import userDataContext from "../../contexts/userDataContext";
 import PostBox from "../PostBox/PostBox";
 import PostBoxAuthor from "../PostBox/PostBoxAuthor";
-import axios from "axios";
 import PostCreator from "../PostCreator/PostCreator";
-import styled from "styled-components";
-import useInterval from 'use-interval'
-import { IoSync } from 'react-icons/io5'
+import InfiniteScroll from 'react-infinite-scroller';
+import useInterval from 'use-interval';
+import { IoSync } from 'react-icons/io5';
+import { TailSpin } from  'react-loader-spinner';
+import { NoPostsMessage } from "./styledComponents";
 
 export default function FeedBox(props) {
     const {userData} = useContext(userDataContext);
     const [feed, setFeed] = useState([]);
     const [reRender, setReRender] = useState(0);
     const [isDisabled, setIsDisabled] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
     const [notifyPosts, setNotifyPosts] = useState({ status: false});
     const token = userData.token;
     
     useInterval(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/feed`, token)
+        axios.get(`${process.env.REACT_APP_API_URL}/feed/?limit=${10}`, token)
         .then( res =>{
             let countNewPosts = 0;
             const idsFeed = feed.map(item => item.id);
@@ -41,8 +45,6 @@ export default function FeedBox(props) {
     }, 5000);
 
     useEffect(() => {
-
-        console.log('teste do re-render')
         if(props.userId) {
             const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed/${props.userId}`, token);
             feedRequest.then(answer => {
@@ -55,7 +57,7 @@ export default function FeedBox(props) {
             });
         }
         else {
-            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed`, token);
+            const feedRequest = axios.get(`${process.env.REACT_APP_API_URL}/feed/?limit=${10}`, token);
             feedRequest.then(answer => {
                 setFeed(answer.data);
             });
@@ -66,12 +68,27 @@ export default function FeedBox(props) {
             });
         }
 
-    }, [isDisabled, token, reRender]);
+    }, [isDisabled, token, reRender, props.userId]);
     
     
     function updateFeed(){
         setNotifyPosts({status: false});
         setReRender(Math.random());
+    }
+
+    function loadFunc(){
+        const newLimit = feed.length + 10;
+        axios.get(`${process.env.REACT_APP_API_URL}/feed/?limit=${newLimit}`, token)
+        .then( res =>{ 
+            const posts = [...res.data];
+            if(posts.length === feed.length){
+                return setHasMore(false);
+            }
+            setFeed(posts);
+        })
+        .catch( err =>{
+            console.log(err);
+        })
     }
 
     return(
@@ -85,26 +102,27 @@ export default function FeedBox(props) {
                 : ''
             }
             
-            {feed.length > 0 ?
-                feed.map((post, index) =>{
-                    if(post.userid === userData.id){
-                        return <PostBoxAuthor setReRender={setReRender} key={post.id} {...post}/>
-                    } else {
-                        return <PostBox key={post.id} {...post} />
-                    }
-                    })
-                :  <NoPostsMessage> There are no posts yet</NoPostsMessage>       
-            }
-
+            <InfiniteScroll
+                className="stylesScroller"
+                pageStart={0}
+                loadMore={loadFunc}
+                hasMore={hasMore}
+                loader={ <TailSpin key={Math.random()} height="50" width="50" color="#fff"radius="1"/> }
+            >
+                {feed.length > 0 ?
+                    feed.map((post, index) =>{
+                        if(post.userid === userData.id){
+                            return <PostBoxAuthor setReRender={setReRender} key={post.id} {...post}/>
+                        } else {
+                            return <PostBox key={post.id} {...post} />
+                        }
+                        })
+                    :  <NoPostsMessage> There are no posts yet</NoPostsMessage>       
+                }
+            </InfiniteScroll>
         </>
     );
 }
-
-const NoPostsMessage = styled.div`
-    font-family: 'Lato', sans-serif;
-    color: white;
-    font-size: 20px;
-`
 
 const Container = styled.div`
     box-sizing: border-box;
